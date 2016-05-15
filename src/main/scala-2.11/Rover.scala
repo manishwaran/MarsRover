@@ -1,3 +1,5 @@
+import scala.swing.Orientation
+
 trait Orientation{
   def left: Orientation
   def right: Orientation
@@ -55,11 +57,28 @@ class MyRover(curPos:Position,maxsize: PlateauSize) {
 
 object Rover {
   def main(args: Array[String]) {
-    val plateausize = new PlateauSize(5+1, 5+1)
-    val location = new Location(3, 3)
-    val position = new Position(location, East)
+    println("Enter Plateau Size for x and y co-ordinates : ")
+    var x=scala.io.StdIn.readInt()
+    var y=scala.io.StdIn.readInt()
+    val plateausize = new PlateauSize(x+1, y+1)
+    println("Enter the current position for Rover : ")
+    x=scala.io.StdIn.readInt()
+    y=scala.io.StdIn.readInt()
+    val face =scala.io.StdIn.readChar()
+    val location = new Location(x, y)
+    var direction: AnyRef=null
+    face match {
+      case 'N' => direction=North
+      case 'S' => direction=South
+      case 'W' => direction=West
+      case 'E' => direction=East
+    }
+    val position = new Position(location, direction.asInstanceOf[Orientation])
     val myRover = new MyRover(position, plateausize)
-    val newlocation = myRover.getNewPosition("MMRMMRMRRM")
+    println("Enter the moving pattern : ")
+    val patternString = scala.io.StdIn.readLine()
+    val newlocation = myRover.getNewPosition(patternString)
+    println("The new location of Rover :  ")
     print(newlocation)
   }
 }
