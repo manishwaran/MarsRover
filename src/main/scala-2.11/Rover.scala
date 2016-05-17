@@ -60,6 +60,7 @@ object Rover {
     val position = new Position(location, North)
     val myRover = new MyRover(position, plateausize)
     val newlocation = myRover.getNewPosition("LMLMLMLMM")
+    print("new location of the rover : ")
     print(newlocation)
   }
 }
